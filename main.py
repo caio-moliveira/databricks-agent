@@ -1,74 +1,56 @@
-# pip install databricks-langchain langchain mlflow
-
+# main.py
 import os
-from operator import itemgetter
-from typing import Any, Dict
-
+import mlflow
 from databricks_langchain import DatabricksVectorSearch, ChatDatabricks
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda, RunnableMap
 from langchain_core.output_parsers import StrOutputParser
-import mlflow
 
-# 1) Configure seus endpoints/nomes (substitua pelos reais)
-VS_ENDPOINT = os.getenv(
-    "VS_ENDPOINT", "meu-vs-endpoint"
-)  # nome do endpoint de Vector Search
-INDEX_NAME = os.getenv(
-    "VS_INDEX", "catalog.schema.index_name"
-)  # caminho completo do índice
+# --- CONFIG (use variáveis de ambiente fora do código em prod) ---
+os.environ["DATABRICKS_HOST"] = ""
+os.environ["DATABRICKS_TOKEN"] = ""
+os.environ["MLFLOW_TRACKING_URI"] = "databricks"
+EXPERIMENT_ID = os.getenv("EXPERIMENT_ID", "")
+
+VS_ENDPOINT = os.getenv("VS_ENDPOINT", "my-vector-db")
+INDEX_NAME = os.getenv("VS_INDEX", "agent.gpt.products_vs_index")
 LLM_ENDPOINT = os.getenv("LLM_EP", "databricks-meta-llama-3-3-70b-instruct")
 MODEL_NAME = os.getenv("MODEL_NAME", "langchain_rag_demo")
 
+# --- Retriever (1 linha prática) ---
+retriever = DatabricksVectorSearch(
+    endpoint=VS_ENDPOINT,
+    index_name=INDEX_NAME,
+    columns=["id", "description"],  # ajuste ao nome das suas colunas
+).as_retriever(search_kwargs={"k": 3, "query_type": "HYBRID"})
 
-# 2) Função que carrega o retriever (usada pela cadeia e pelo MLflow)
-def retriever_loader():
-    index = DatabricksVectorSearch(
-        endpoint=VS_ENDPOINT,
-        index_name=INDEX_NAME,
-        columns=["ID", "TEXT"],  # ajuste se no seu índice os nomes diferirem
-    )
-    return index.as_retriever(search_kwargs={"k": 3, "query_type": "HYBRID"})
-
-
-retriever = retriever_loader()
-
-# 3) Prompt simples (ajuste para instruções/RAG de verdade)
+# --- Prompt + LLM + Cadeia ---
 prompt = PromptTemplate.from_template(
     "Responda de forma concisa.\n\nPergunta: {query}\n\nContexto:\n{context}\n\nResposta:"
 )
 
 
-# 4) Funções auxiliares
-def ensure_query(input_: Dict[str, Any]) -> str:
-    """Extrai a pergunta. Se vier como 'messages' (string), usa direto."""
-    msg = input_.get("messages", "")
-    # Se fosse lista de mensagens tipo chat, aqui você transformaria em string.
-    return msg if isinstance(msg, str) else str(msg)
+def ensure_query(d):
+    return d.get("messages", "")
 
 
-def format_context(chunks: Any) -> str:
-    """Transforma a lista de Document(s) do retriever em um bloco de texto."""
-    if chunks is None:
-        return ""
-    try:
-        # LangChain retriever retorna uma lista de Document
-        return "\n\n---\n\n".join(getattr(d, "page_content", str(d)) for d in chunks)
-    except Exception:
-        return str(chunks)
+def format_ctx(docs):
+    return (
+        ""
+        if not docs
+        else "\n\n---\n\n".join(getattr(x, "page_content", str(x)) for x in docs)
+    )
 
 
-# 5) LLM no Model Serving
 llm = ChatDatabricks(endpoint=LLM_ENDPOINT)
 
-# 6) Cadeia LCEL
 chain = (
     RunnableMap(
         {
             "query": RunnableLambda(ensure_query),
             "context": RunnableLambda(ensure_query)
             | retriever
-            | RunnableLambda(format_context),
+            | RunnableLambda(format_ctx),
         }
     )
     | prompt
@@ -76,17 +58,16 @@ chain = (
     | StrOutputParser()
 )
 
-# 7) Exemplo de chamada
-input_example = {"messages": "O que é RCM e como aplicar?"}
-resp = chain.invoke(input_example)
-print(resp)
+# --- Teste rápido ---
+print(chain.invoke({"messages": "What is the description of product id 2?"}))
 
-# 8) Log no MLflow (inclui como reconstruir o retriever)
-with mlflow.start_run(run_name="rag-demo") as run:
-    mlflow.langchain.log_model(
-        chain,
-        loader_fn=retriever_loader,
-        artifact_path="rag_chain",
+# --- Log no MLflow (sem classe, direto) ---
+mlflow.set_experiment(experiment_id=EXPERIMENT_ID)
+with mlflow.start_run(run_name="rag-demo"):
+    model_info = mlflow.langchain.log_model(
+        lc_model=chain,
+        loader_fn=lambda: retriever,
+        name="rag_chain",
         registered_model_name=MODEL_NAME,
-        input_example=input_example,
     )
+    print("Model logged at:", model_info.model_uri)
