@@ -1,0 +1,10 @@
+artifact_location: file:///E:/github/databricks-agent/mlruns/0/models/m-cc181693f1394de68cb8c5681c8d050a/artifacts
+creation_timestamp: 1762106325256
+experiment_id: '0'
+last_updated_timestamp: 1762106326848
+model_id: m-cc181693f1394de68cb8c5681c8d050a
+model_type: null
+name: rag_chain
+source_run_id: 1397d9c851da4af5a3b5f7ed727eff12
+status: 3
+status_message: null

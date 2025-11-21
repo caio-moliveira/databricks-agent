@@ -1,0 +1,14 @@
+artifact_uri: file:///E:/github/databricks-agent/mlruns/0/706255b9c361451b947d54b5baf54bc2/artifacts
+end_time: 1762106271739
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 706255b9c361451b947d54b5baf54bc2
+run_name: rag-demo-pyfunc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762106271605
+status: 4
+tags: []
+user_id: Caio
