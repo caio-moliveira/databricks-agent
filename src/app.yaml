@@ -1,38 +1,26 @@
-command: [
-  "streamlit", "run",
-  "app.py"
-]
+command: ["streamlit", "run", "app.py"]
 
 env:
-  - name: VS_ENDPOINT
-    valueFrom: "vs-endpoint"
-
-  - name: INDEX_NAME
-    valueFrom: "index-name"
-
-  - name: LLM_ENDPOINT
-    valueFrom: "llm-endpoint"
-
-  - name: MODEL_NAME
-    valueFrom: "model-name"
-
-  - name: EXPERIMENT_ID
-    valueFrom: "experiment-id"
-
-  - name: MLFLOW_TRACKING_URI
-    valueFrom: "mlflow-tracking-uri"
-
   - name: DATABRICKS_HOST
-    valueFrom: "databricks-host"
+    valueFrom: secret
 
   - name: DATABRICKS_TOKEN
-    valueFrom: "databricks-token"
+    valueFrom: secret
 
-  - name: DATABRICKS_ACCOUNT_ID
-    valueFrom: "databricks-account-id"
+  - name: LLM_EP
+    value: "databricks-meta-llama-3-3-70b-instruct"
 
-  - name: BASE_URL
-    valueFrom: "base-url"
+  - name: VS_ENDPOINT
+    value: "my-vector-search"
 
-  - name: OPENAI_API_KEY
-    valueFrom: "openai-api-key"
+  - name: VS_INDEX
+    value: "ai-agent-workshop.data.financas_semantica_index"
+
+  - name: EXPERIMENT_ID
+    value: "123456789012345"
+
+  - name: MLFLOW_TRACKING_URI
+    value: "databricks"
+
+  - name: STREAMLIT_GATHER_USAGE_STATS
+    value: "false"
