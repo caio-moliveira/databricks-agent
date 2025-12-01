@@ -1,0 +1,28 @@
+command: [
+  "streamlit", "run", 
+  "app.py"
+]
+
+env:
+  - name: "SERVING_ENDPOINT"
+    valueFrom: "serving-endpoint"
+  - name: "DATABRICKS_TOKEN"
+    valueFrom: "databricks-token"
+  - name: "DATABRICKS_HOST"
+    valueFrom: "databricks-host"
+  - name: "INDEX_NAME"
+    valueFrom: "index-name"
+  - name: "MLFLOW_TRACKING_URI"
+    valueFrom: "mlflow-tracking-uri"
+  - name: "EXPERIMENT_ID"
+    valueFrom: "experiment-id"  
+  - name: "LLM_ENDPOINT"
+    valueFrom: "llm-endpoint"
+  - name: "MODEL_NAME"
+    valueFrom: "model-name"
+  - name: "VS_ENDPOINT"
+    valueFrom: "vs-endpoint"
+  - name: "BASE_URL"
+    valueFrom: "base-url"
+  - name: "DATABRICKS_ACCOUNT_ID"
+    valueFrom: "databricks-account-id"

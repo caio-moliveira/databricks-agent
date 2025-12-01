@@ -8,11 +8,9 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI
 from settings import settings
 
-# --- Funções Auxiliares ---
-
 
 def ensure_query(d: dict) -> str:
-    """Extrai a query da entrada (compatível com o formato Streamlit/LangChain)."""
+    """Extrai a query da entrada do dicionário."""
     return d.get("messages", "") or d.get("query", "")
 
 
@@ -23,9 +21,6 @@ def format_ctx(docs):
         if not docs
         else "\n\n---\n\n".join(getattr(x, "page_content", str(x)) for x in docs)
     )
-
-
-# --- Função Principal para Criar a Chain RAG ---
 
 
 def get_rag_chain():
