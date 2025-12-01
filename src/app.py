@@ -3,6 +3,10 @@ import streamlit as st
 from main import get_rag_chain  # Importa a função
 from settings import settings  # Acessa as configurações
 import mlflow
+import os
+
+assert os.getenv("DATABRICKS_TOKEN")
+assert os.getenv("DATABRICKS_HOST")
 
 
 st.set_page_config(page_title="🤖 Databricks Financial RAG Bot", layout="centered")
