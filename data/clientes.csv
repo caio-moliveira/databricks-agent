@@ -1,0 +1,101 @@
+id_cliente,nome_cliente,email,telefone,cidade,estado,segmento
+1,Murilo Ferreira,ycamara@example.org,+55 51 8780 7334,Fonseca de Goiás,TO,Varejo
+2,Dra. Emilly Camargo,joao-miguel45@example.com,+55 51 6262 3005,Melo de Aparecida,DF,Varejo
+3,Jade Rocha,vargascaleb@example.org,+55 81 2494 0061,Caldeira,PR,Varejo
+4,Daniela Leão,rael92@example.net,+55 (061) 6007 9439,Abreu,TO,Atacado
+5,Isabela Nascimento,caua15@example.org,(011) 6150 7288,Nogueira,AC,Premium
+6,Esther Brito,pedro-henriqueabreu@example.org,+55 (061) 6601-7671,Costela dos Dourados,RS,Varejo
+7,Maria Souza,marcelo89@example.org,0900-233-2267,Alves,RN,Atacado
+8,Leonardo Nogueira,joao-vitorcunha@example.com,(071) 6474-2266,Vieira da Prata,GO,Premium
+9,Ana Julia Souza,olivia21@example.org,+55 41 4064-2710,Vieira Grande,PE,Atacado
+10,Ravi Andrade,davi72@example.net,(011) 4243-5747,Mendes,RR,Premium
+11,Anthony Gabriel Fogaça,ianda-conceicao@example.net,(051) 4083 0650,Mendes de Guerra,AL,Atacado
+12,Giovanna da Rosa,caiorezende@example.net,+55 11 4538-1786,da Cunha Verde,AL,Premium
+13,Benicio Azevedo,joao-lucas89@example.org,11 2983 4385,Gonçalves,MG,Premium
+14,Marina Jesus,camargobenicio@example.org,81 7534 5367,Leão,MG,Atacado
+15,Caio Rios,lsilveira@example.net,+55 61 1683 3173,Pereira de Câmara,AL,Premium
+16,Raul Correia,diogo79@example.net,(071) 0931-8327,Lopes de Montenegro,PI,Varejo
+17,Davi Lucas da Rocha,claricepastor@example.net,84 7927-7185,Alves,MT,Varejo
+18,Davi Luiz das Neves,eduarda05@example.org,(041) 7244 4080,Sampaio,MG,Premium
+19,Davi Lucas Rios,nataliada-mota@example.com,+55 (031) 6228 8274,Silveira das Pedras,SE,Premium
+20,Emanuel Pinto,antony63@example.org,0900-344-4503,Sales,AC,Varejo
+21,Sra. Zoe Souza,eduardoviana@example.net,(011) 0870 4684,Correia,AL,Premium
+22,Gael Gomes,rcarvalho@example.com,+55 41 9546 4392,da Conceição Alegre,DF,Atacado
+23,Dante Fonseca,da-pazolivia@example.net,+55 (084) 4216 1220,Camargo,PI,Atacado
+24,Sr. Gustavo Henrique Cavalcante,marquesluiz-otavio@example.org,0800-630-4805,Barbosa,MG,Premium
+25,Paulo Guerra,carvalhocaio@example.org,+55 61 5432-1277,Campos,RS,Atacado
+26,Heitor Vieira,maragao@example.com,+55 81 6257-7795,Sales,DF,Premium
+27,Diego da Paz,rochadavi@example.net,+55 84 1349 3086,Andrade de Aragão,PI,Varejo
+28,Natália Sampaio,isis03@example.com,(061) 0827 0986,Souza,MS,Premium
+29,Alexandre da Rosa,enzosa@example.org,0800-034-2903,Almeida,AC,Atacado
+30,Isabela Dias,pedro71@example.net,+55 61 3490-9501,Silva,MS,Atacado
+31,Sr. Nicolas Souza,benjamim27@example.net,(061) 1030-1774,Souza do Sul,GO,Premium
+32,Lorenzo Cunha,jose26@example.net,31 8495-8168,Vasconcelos,MA,Premium
+33,Juan Câmara,maria-juliamendonca@example.org,+55 (071) 3263-3013,Sales,AM,Premium
+34,Dr. Samuel Pinto,maria-flor03@example.org,+55 31 8458 5973,Jesus,AC,Atacado
+35,Theo Marques,cavalcanteeloah@example.com,+55 (081) 5656 4509,Freitas dos Dourados,CE,Varejo
+36,Henry Gabriel Gonçalves,natalia52@example.com,21 3644-4440,Almeida,MA,Atacado
+37,Lucas Gabriel Moura,maria-helenapastor@example.net,+55 61 7284 3506,Pacheco da Mata,PA,Varejo
+38,Luísa Ramos,pietra73@example.org,+55 11 5438-5902,Abreu de Ferreira,TO,Premium
+39,Rodrigo Fogaça,sanathan@example.net,11 7188-4038,Costela de Sales,AL,Atacado
+40,Sra. Alana Aparecida,luiz-fernando51@example.net,81 6177 0666,Gonçalves de Sampaio,SP,Varejo
+41,Letícia Melo,rodrigo58@example.net,+55 21 3963-0028,Guerra,RN,Premium
+42,Joaquim Leão,ana-carolinacamara@example.com,+55 41 5972-1403,Dias de Vasconcelos,RN,Premium
+43,Davi Lucca Barros,aparecidajulia@example.com,+55 (011) 6650 0796,Montenegro,RR,Premium
+44,Kevin Vieira,portoarthur-miguel@example.net,51 1928 2197,da Luz,MT,Atacado
+45,Fernando Pimenta,ipinto@example.net,(071) 3983-7952,Pastor,GO,Varejo
+46,Lavínia Moura,riosmaria-vitoria@example.org,+55 21 2999 5549,Almeida,CE,Premium
+47,Ana Laura Duarte,da-cunharael@example.net,+55 11 0583 6862,Vargas dos Dourados,RR,Atacado
+48,Vitor Gabriel Azevedo,ecassiano@example.com,+55 (071) 4030 3984,Almeida de Camargo,PR,Varejo
+49,Bernardo Fonseca,lizfogaca@example.org,(031) 6868-6388,da Mata da Mata,MG,Varejo
+50,Guilherme Barbosa,ana-livia17@example.org,0500-342-4189,Caldeira,RR,Varejo
+51,Dr. Luiz Miguel da Rocha,oliviarocha@example.com,51 1312 6115,da Cunha do Galho,PR,Atacado
+52,João Guilherme Silva,vicentemachado@example.com,+55 84 6674 0009,Dias,RN,Atacado
+53,Antônio da Cunha,emanuelteixeira@example.org,(031) 7968-3379,Dias do Galho,AP,Varejo
+54,Maria Julia Vargas,fgoncalves@example.net,(011) 5311-6692,Silveira,SP,Atacado
+55,Matteo Fernandes,jesussabrina@example.net,(011) 0536-1914,Novais,PB,Atacado
+56,Maria Luísa Guerra,alexiamontenegro@example.com,+55 (031) 9761-4332,Martins do Amparo,AC,Premium
+57,Sra. Juliana Borges,nataliaoliveira@example.com,+55 (031) 4994-2585,Leão do Oeste,SP,Premium
+58,Stephany Pastor,oda-cunha@example.org,+55 (011) 7654 0031,Fernandes de Novais,PI,Atacado
+59,Dra. Maria Rezende,leo53@example.org,+55 (041) 4120 6955,Dias,ES,Atacado
+60,Diego Sousa,gustavooliveira@example.net,+55 51 5988 6240,Moraes das Pedras,MT,Premium
+61,Oliver Cassiano,beatrizpinto@example.com,+55 11 9095-6283,Aparecida das Flores,CE,Premium
+62,Diogo Lopes,hmendonca@example.com,(011) 1115-4407,Ramos,SP,Varejo
+63,Pedro Miguel Leão,vmoreira@example.net,+55 51 3522 9561,das Neves,RS,Atacado
+64,Dra. Lavínia Teixeira,pmontenegro@example.com,0800-371-2283,Sousa de Cardoso,AL,Varejo
+65,Ana Vitória Mendes,franciscoporto@example.com,+55 (031) 1074 3731,Mendes de Cassiano,SE,Premium
+66,Leonardo da Costa,da-cunhastephany@example.com,(084) 0868-0646,Vieira de Mendonça,PE,Varejo
+67,Sara Borges,jfogaca@example.net,(051) 1793-2388,Mendes,PR,Atacado
+68,Rafael da Mata,maria-fernanda81@example.net,+55 (021) 2429 6428,Ferreira de Costela,ES,Varejo
+69,Sr. Arthur Miguel da Rocha,sophiesilva@example.net,31 4117 6162,Cirino,AC,Atacado
+70,Srta. Alícia Camargo,nrios@example.org,+55 (071) 2461-2769,Vasconcelos,CE,Atacado
+71,Cecília da Costa,anthony-gabrielferreira@example.net,81 7116 6305,Albuquerque do Norte,CE,Premium
+72,Isadora Pinto,souzavinicius@example.net,(084) 8467-0625,Vasconcelos,PE,Atacado
+73,Aylla Vieira,fmarques@example.org,71 0205 4633,Cassiano,PB,Atacado
+74,José Pedro da Cruz,lucca41@example.com,+55 11 8240-9355,Mendonça da Serra,AP,Varejo
+75,Melissa Carvalho,costelafernanda@example.com,(081) 5711-7845,Cassiano de Minas,PE,Premium
+76,Paulo Silva,rafaelaalbuquerque@example.com,(071) 1653 7033,Peixoto,SC,Atacado
+77,Brenda Nascimento,ceciliavieira@example.com,71 5952 1200,Ferreira Grande,RJ,Varejo
+78,Davi Lucca Azevedo,fleao@example.org,0800-544-0561,Moraes da Mata,TO,Premium
+79,Nicolas Costela,fviana@example.net,0800 341 4244,da Rocha,RO,Varejo
+80,Sr. Murilo da Rosa,ana-cecilia42@example.com,+55 84 0500 4884,Pinto,GO,Varejo
+81,Yago Pereira,dantemoura@example.net,+55 (061) 6987-6251,Oliveira de Sousa,AM,Varejo
+82,Srta. Marina Montenegro,vargasraul@example.org,71 7252-3345,Peixoto do Norte,PR,Atacado
+83,Benjamin Monteiro,ayla35@example.com,(061) 3534-1077,Ferreira,MA,Varejo
+84,Marina Cirino,vcamara@example.net,+55 41 2374-2591,Castro,DF,Varejo
+85,Maria Julia Ramos,casa-grandebruna@example.org,0300 246 6432,Vasconcelos,PA,Atacado
+86,Benicio da Conceição,ucorreia@example.com,(061) 1664 1741,Pimenta de Minas,TO,Varejo
+87,Vitória Cavalcante,sampaiojosue@example.com,+55 71 9743-7611,Pastor do Oeste,RN,Varejo
+88,Pietro da Rosa,zborges@example.org,+55 81 1564-0164,Nogueira do Galho,PR,Premium
+89,Arthur da Conceição,lvargas@example.com,11 1953-9508,Pastor,MS,Atacado
+90,Maria Helena Moraes,cavalcantecaleb@example.net,81 9781-3157,Sales,BA,Varejo
+91,Eduardo Santos,alexia19@example.net,+55 31 4525 8631,Costela das Pedras,GO,Atacado
+92,Augusto da Paz,ayllapacheco@example.com,+55 51 0205 3499,Pastor do Oeste,MS,Atacado
+93,Helena da Paz,jose-miguelabreu@example.net,(061) 9739-8409,Cassiano Alegre,RJ,Varejo
+94,Vitória da Rocha,jsiqueira@example.org,(021) 2509-7810,Cavalcanti de Minas,PI,Atacado
+95,Maria Alice Cirino,novaeslorenzo@example.org,+55 41 6448 5458,Freitas,ES,Premium
+96,Mariane Leão,luigibarbosa@example.net,51 1414 7754,Macedo,AM,Premium
+97,Emanuella Melo,mabreu@example.net,71 3679 7500,Andrade da Mata,MG,Atacado
+98,Lorena da Costa,pcunha@example.net,(084) 7743-1869,Oliveira,AL,Varejo
+99,Sra. Bárbara Carvalho,andradelais@example.org,41 1630-4496,da Rosa da Praia,AL,Varejo
+100,Helena Alves,sousabreno@example.com,71 1379 3905,Azevedo da Prata,AP,Atacado
