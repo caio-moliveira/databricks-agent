@@ -32,65 +32,67 @@ def get_rag_chain():
     retriever = DatabricksVectorSearch(
         endpoint=settings.VS_ENDPOINT,
         index_name=settings.INDEX_NAME,
-        columns=[
-            "id_registro",
-            "tipo",
-            "ano",
-            "mes",
-            "nome_cliente",
-            "segmento_cliente",
-            "cidade_cliente",
-            "estado_cliente",
-            "nome_produto",
-            "categoria_produto",
-            "quantidade",
-            "valor_unitario",
-            "receita_venda",
-            "canal_venda",
-        ],
+        columns=["nome_produto", "descricao", "categoria", "preco", "ativo"],
     ).as_retriever(
         search_kwargs={
-            "k": 10,
+            "k": 3,
             "query_type": "HYBRID",
         }
     )
 
     # 2. Promtp Template
-    prompt = PromptTemplate.from_template(
-        """
-Você é um analista financeiro que responde perguntas sobre vendas, produtos e clientes
-com base nos dados de uma empresa.
+    prompt = PromptTemplate.from_template("""
+    Você é um **assistente de recomendação de produtos**.
+    Sua tarefa é analisar o CONTEXTO (registros de produtos) e responder à PERGUNTA DO USUÁRIO
+    **apenas** com base nesses registros.
 
-Você recebe como CONTEXTO uma lista de registros de vendas. Cada registro descreve:
-- data da venda
-- cliente (nome, segmento, cidade, estado)
-- produto (nome, categoria)
-- quantidade
-- valor unitário
-- valor total (receita_venda)
-- canal de venda
+    Cada item do CONTEXTO contém:
+    - nome_produto
+    - descricao
+    - categoria
+    - preco
+    - ativo (booleano)
 
-INSTRUÇÕES:
-- Use SOMENTE as informações do contexto para responder.
-- Quando a pergunta envolver "produtos que mais venderam",
-  "categorias que mais venderam", "clientes que mais compraram",
-  "valor gasto total por cliente" ou similares:
-    - Observe os registros do contexto e explique os padrões
-      (por exemplo: produtos/cliente/categorias que se repetem, maior valor total, etc.).
-- Se o contexto for limitado e não permitir resposta exata,
-  deixe isso claro e diga que a resposta é baseada apenas no que foi retornado.
-- Sempre responda em PORTUGUÊS, de forma clara, organizada e objetiva.
-- Se não houver informação suficiente no contexto, diga isso explicitamente.
+    REGRAS IMPORTANTES
+    1) **Não use conhecimento externo.**
+    2) Priorize produtos onde `ativo` == true.  
+    - Se houver poucos itens ativos, preencha com inativos e explique isso em "observacoes".
+    3) O foco de seleção é **aderência semântica** entre a consulta do usuário ({query}) e a coluna **descricao**.
+    4) Explique sucintamente **por que** cada produto foi escolhido, citando características da coluna `descricao` que se relacionam com a busca.
+    5) Sempre responda em **PORTUGUÊS**, de forma clara e objetiva.
+    6) Saída obrigatória em **JSON**, SEM texto fora do JSON.
 
-Pergunta do usuário:
-{query}
+    COMO PRIORIZAR
+    - Termos semelhantes entre a busca e a `descricao`.
+    - Categoria mais compatível.
+    - Produtos ativos primeiro.
+    - Se houver empate, prefira:  
+    (a) descrição mais específica,  
+    (b) categoria mais alinhada,  
+    (c) preço mais coerente com a intenção do usuário (se mencionada).
 
-Contexto:
-{context}
+    FORMATO DE SAÍDA (JSON)
+    {{
+    "consulta_usuario": "<copie a consulta do usuário>",
+    "itens": [
+        {{
+        "nome_produto": "<string>",
+        "categoria": "<string>",
+        "preco": <number>,
+        "ativo": <true|false>,
+        "score_aderencia": <number>,
+        "justificativa": "<1 a 2 frases explicando o match com a descricao>"
+        }}
+    ],
+    "observacoes": "<opcional: ex. 'faltaram produtos ativos', 'contexto limitado', etc>"
+    }}
 
-Resposta:
-"""
-    )
+    PERGUNTA DO USUÁRIO:
+    {query}
+
+    CONTEXTO RECEBIDO:
+    {context}
+    """)
 
     # 3. LLM
     llm = ChatDatabricks(endpoint=settings.LLM_ENDPOINT)

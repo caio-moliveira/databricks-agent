@@ -14,11 +14,12 @@ class Settings:
     EXPERIMENT_ID = os.getenv("EXPERIMENT_ID")
 
     VS_ENDPOINT = os.getenv("VS_ENDPOINT", "my-vector-search")
-    INDEX_NAME = os.getenv(
-        "VS_INDEX", "ai-agent-workshop.data.financas_semantica_index"
-    )
+    INDEX_NAME = os.getenv("VS_INDEX", "ai-agent-workshop.data.produtos_index")
     LLM_ENDPOINT = os.getenv("LLM_EP", "databricks-meta-llama-3-3-70b-instruct")
     MODEL_NAME = os.getenv("MODEL_NAME", "langchain_rag_demo")
+    DATABRICKS_HTTP_PATH = os.getenv(
+        "HTTP_PATH", "/sql/1.0/warehouses/92070bb914c32dff"
+    )
 
 
 settings = Settings()

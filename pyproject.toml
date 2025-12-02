@@ -7,6 +7,8 @@ requires-python = ">=3.13"
 dependencies = [
     "databricks-langchain>=0.11.0",
     "databricks-sdk>=0.73.0",
+    "databricks-sql-connector>=4.2.1",
+    "databricks-sqlalchemy>=2.0.8",
     "databricks-vectorsearch>=0.63",
     "faker>=38.2.0",
     "langchain>=1.0.8",
