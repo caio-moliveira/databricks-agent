@@ -1,9 +1,8 @@
 # app.py
 import streamlit as st
-from main import get_rag_chain  # Importa a função
-from settings import settings  # Acessa as configurações
+from main import get_rag_chain
 import mlflow
-
+import os
 
 st.set_page_config(page_title="🤖 Databricks Financial RAG Bot", layout="centered")
 st.title("💰 Databricks Financial RAG Bot")
@@ -52,7 +51,7 @@ if prompt := st.chat_input("Insira sua pergunta de análise financeira..."):
                 response = chain.invoke({"messages": prompt})
                 st.write(response)
 
-                # Logs do MLflow (Opcional, mas útil)
+                # Logs do MLflow
                 mlflow.log_param("user_query", prompt)
                 mlflow.log_param("run_id", run.info.run_id)
 
@@ -62,9 +61,9 @@ if prompt := st.chat_input("Insira sua pergunta de análise financeira..."):
 # --- Sidebar ---
 with st.sidebar:
     st.header("⚙️ Configurações do Agente")
-    st.write(f"**Endpoint do LLM:** `{settings.LLM_ENDPOINT}`")
-    st.write(f"**Endpoint do Vector Search:** `{settings.VS_ENDPOINT}`")
-    st.write(f"**Índice:** `{settings.INDEX_NAME}`")
+    st.write(f"**Endpoint do LLM:** `{os.getenv('LLM_ENDPOINT')}`")
+    st.write(f"**Endpoint do Vector Search:** `{os.getenv('VS_ENDPOINT')}`")
+    st.write(f"**Índice:** `{os.getenv('INDEX_NAME')}`")
     st.markdown("---")
     st.caption(
         "A Chain RAG é inicializada uma única vez usando `@st.cache_resource` para performance."

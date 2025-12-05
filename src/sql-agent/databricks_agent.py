@@ -3,18 +3,18 @@ from langchain_community.utilities import SQLDatabase
 from langchain_community.agent_toolkits import SQLDatabaseToolkit
 from langchain_openai import ChatOpenAI
 from langchain_community.agent_toolkits import create_sql_agent
-from .db import engine
+from db import engine
 
 
 CATALOG = "ai-agent-workshop"
 SCHEMA = "data"
-VIEW = f"{CATALOG}.{SCHEMA}.vendas_full"
+VIEW = f"{CATALOG}.{SCHEMA}.financas_vendas"
 
 
 # 1) Conecta ao Warehouse
 db = SQLDatabase(
     engine,
-    include_tables=["financas_semantica"],
+    include_tables=["financas_vendas"],
 )
 
 # 2) LLM (troque por seu provedor preferido)
@@ -44,10 +44,3 @@ agent = create_sql_agent(
 def ask(question: str) -> str:
     """Chame isto do seu endpoint/UI."""
     return agent.run(question)
-
-
-if __name__ == "__main__":
-    # Exemplos
-    print(ask("Quem são os 5 clientes que mais compraram em 2025?"))
-    # print(ask("Qual produto mais vendeu em quantidade entre 01/09/2025 e 30/11/2025?"))
-    # print(ask("Mostre as vendas diárias (receita) do último mês."))

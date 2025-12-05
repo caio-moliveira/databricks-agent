@@ -10,7 +10,7 @@ client = OpenAI(
 )
 
 response = client.chat.completions.create(
-    model="databricks-meta-llama-3-1-405b-instruct",  # https://dbc-981b094d-0fe7.cloud.databricks.com/ml/endpoints?o=1502998518117836
+    model="databricks-meta-llama-3-1-405b-instruct",
     messages=[{"role": "user", "content": "What is Databricks?"}],
     temperature=0,
     extra_body={"usage_context": {"project": "project1"}},

@@ -9,7 +9,7 @@ class Settings:
     DATABRICKS_HOST = os.getenv("DATABRICKS_HOST")
     DATABRICKS_TOKEN = os.getenv("DATABRICKS_TOKEN")
 
-    DATABRICKS_ACCOUNT_ID = os.getenv("DATABRICKS_ACCOUNT_ID")
+    # DATABRICKS_ACCOUNT_ID = os.getenv("DATABRICKS_ACCOUNT_ID")
     MLFLOW_URI = os.getenv("MLFLOW_TRACKING_URI", "databricks")
     EXPERIMENT_ID = os.getenv("EXPERIMENT_ID")
 
