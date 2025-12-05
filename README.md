@@ -143,8 +143,8 @@ Ao final desta etapa, você terá as seguintes tabelas **Delta** disponíveis no
 
 Agora que os dados estão prontos, o workshop se divide em dois projetos principais:
 
-1.  **[Projeto 1: Agente RAG (Vector Search)](https://www.google.com/search?q=%23projeto-1-agente-rag-vector-search)** (utiliza a tabela `produtos`)
-2.  **[Projeto 2: Agente SQL (Text-to-SQL)](https://www.google.com/search?q=%23projeto-2-agente-sql-text-to-sql)** (utiliza as tabelas `clientes`, `produtos`, `vendas`)
+1.  **[Projeto 1: Agente RAG (Vector Search)](https://github.com/caio-moliveira/databricks-agent/blob/main/src/README.md)** (utiliza a tabela `produtos`)
+2.  **[Projeto 2: Agente SQL (Text-to-SQL)](https://github.com/caio-moliveira/databricks-agent/blob/main/src/sql-agent/README.md)** (utiliza as tabelas `clientes`, `produtos`, `vendas`)
 
-**Pule para o [Projeto 1: Agente RAG (Vector Search)](https://www.google.com/search?q=%23projeto-1-agente-rag-vector-search).**
+**Utilizando LLM models do Databricks [Exemplo utilizando Models-Serving)](https://github.com/caio-moliveira/databricks-agent/blob/main/src/example/README.md).**
 
