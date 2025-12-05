@@ -1,7 +1,3 @@
-Aqui está uma **versão revisada, mais clara, mais atrativa e mais organizada** da sua introdução — mantendo **todas as imagens, badges, links e estrutura**, mas elevando o texto para um nível mais profissional e convidativo:
-
----
-
 <div align="center">
   <img src="./assets/jornada.png" alt="Jornada de Dados" width="200"/>
 
@@ -19,6 +15,8 @@ Aqui está uma **versão revisada, mais clara, mais atrativa e mais organizada**
 
 </div>
 
+-----
+
 
 ## 🎯 **Sobre o Workshop**
 
@@ -26,74 +24,78 @@ Este repositório faz parte do conteúdo prático do **Workshop Databricks** da 
 
 O objetivo é mostrar, passo a passo, como construir uma solução moderna de Inteligência Artificial que combina:
 
-* Vector Search para buscas semânticas
-* LLMs hospedados nativamente no Databricks
-* LangChain para orquestrar a arquitetura RAG
-* MLflow para rastreamento e observabilidade
-* Streamlit como interface amigável para o usuário final
+  * **Vector Search** para buscas semânticas.
+  * **LLMs** hospedados nativamente no Databricks.
+  * **LangChain** para orquestrar a arquitetura RAG.
+  * **MLflow** para rastreamento e observabilidade.
+  * **Streamlit** como interface amigável para o usuário final.
 
----
+-----
 
 ## 🤖 **O que você vai construir**
 
 Durante este módulo, você desenvolverá um **Chatbot Financeiro Inteligente**, capaz de:
 
-* Consultar dados estruturados e semiestruturados
-* Responder perguntas de negócio em linguagem natural
-* Interpretar registros de vendas, clientes e produtos
-* Utilizar Vector Search para respostas baseadas em similaridade
-* Registrar toda a execução da pipeline no MLflow
-* Expor a solução em um frontend interativo com Streamlit
+  * Consultar dados estruturados e semiestruturados.
+  * Responder perguntas de negócio em linguagem natural.
+  * Interpretar registros de vendas, clientes e produtos.
+  * Utilizar Vector Search para respostas baseadas em similaridade.
+  * Registrar toda a execução da pipeline no MLflow.
+  * Expor a solução em um frontend interativo com Streamlit.
 
 Esse é um **projeto completo**, replicável e pronto para uso em ambientes reais de negócio.
 
----
+-----
 
-# 📁 Estrutura Geral do Projeto
+## 🚀 Fase 0: Configuração Inicial do Ambiente
 
-```
-project/
-│
-├── data/
-│   ├── clientes.csv
-│   ├── produtos.csv
-│   └── vendas.csv
-├── src/
-│   ├── app.py
-│   ├── main.py
-│   ├── settings.py
-└── README.md
+Esta fase inicial garante que seu ambiente Databricks esteja pronto com os dados e estruturas necessárias (Catalog, Schema e Tabelas) para o workshop.
+
+### 1\. Clonagem do Repositório
+
+Comece clonando este repositório para o seu Databricks Repos ou máquina local:
+
+```bash
+git clone <URL_DO_SEU_REPOSITORIO>
+cd <nome-do-repositorio>
 ```
 
----
+### 2\. Configuração do Unity Catalog
 
-# 🧱 1. Criando o Catalog, Schema e Volume
+Para padronizar o ambiente, utilizaremos um **Catalog** e um **Schema** específicos.
 
-No Databricks:
+1.  **Crie o Catalog:**
+      * Navegue até o **Catalog Explorer** no seu Workspace Databricks.
+      * Clique em **Create Catalog** e nomeie-o como: `ai-agent-workshop`
+2.  **Crie o Schema (dentro do Catalog):**
+      * Dentro do Catalog `ai-agent-workshop`, clique em **Create Schema** e nomeie-o como: `data`
 
-1. **Catalog:** `ai-agent-workshop`
-2. **Schema:** `data`
-3. **Volume:** crie um volume dentro do schema (Eu chamei o meu de 'data')
-4. Faça upload dos arquivos CSV dentro de:
+O caminho final para suas tabelas será: `ai-agent-workshop.data.<tabela>`
 
-```
-ai-agent-workshop / data / <seu-volume>
-```
+### 3\. Upload dos Arquivos para Volume
 
----
+Vamos usar a funcionalidade de **Volumes** do Unity Catalog para hospedar os arquivos brutos (`.csv`) antes de criar as tabelas Delta.
 
-# 🔥 2. Criando as Tabelas do Projeto
+1.  **Crie ou Navegue até um Volume:**
+      * No Catalog Explorer, dentro do seu Catalog (`ai-agent-workshop`) e Schema (`data`), navegue até a aba **Volumes**.
+      * Crie um novo Volume (ex: `data`). O caminho final será: `/Volumes/ai-agent-workshop/data/data`.
+2.  **Upload dos Arquivos:**
+      * Os arquivos de dados estão na pasta `data/` do repositório (`clientes.csv`, `produtos.csv`, `vendas.csv`).
+      * Faça o upload desses **três arquivos** diretamente para o Volume que você acabou de criar (`/Volumes/ai-agent-workshop/data/data`).
 
-Abra um **notebook** e execute:
+### 4\. Criação das Tabelas Iniciais (Delta Tables)
+
+Crie um **novo Notebook** no Databricks, anexe-o a um **Cluster** (Databricks Runtime 13.3 LTS+ é recomendado) e execute os comandos abaixo, que leem os CSVs do Volume e criam as tabelas Delta no Unity Catalog.
+
+> **Ajuste o caminho:** Certifique-se de que o caminho do `LOCATION` esteja apontando corretamente para o Volume onde você subiu os arquivos (ex: `'/Volumes/ai-agent-workshop/data/data/'`).
 
 ```sql
+-- Garante que estamos usando o schema correto
 USE CATALOG `ai-agent-workshop`;
+USE SCHEMA data;
 ```
 
-### **Carregando CSVs**
-
-```python
-# Ajuste os paths conforme o nome do volume criado no Databricks
+```py
 path_clientes = "dbfs:/Volumes/ai-agent-workshop/data/data/clientes.csv"
 path_produtos = "dbfs:/Volumes/ai-agent-workshop/data/data/produtos.csv"
 path_vendas   = "dbfs:/Volumes/ai-agent-workshop/data/data/vendas.csv"
@@ -118,193 +120,31 @@ df_vendas = (
     .option("inferSchema", "true")
     .csv(path_vendas)
 )
+
 ```
 
-### **Criando as Tabelas Delta**
-
-```python
+```py
 df_clientes.write.mode("overwrite").saveAsTable("`ai-agent-workshop`.data.clientes")
+
 df_produtos.write.mode("overwrite").saveAsTable("`ai-agent-workshop`.data.produtos")
+
 df_vendas.write.mode("overwrite").saveAsTable("`ai-agent-workshop`.data.vendas")
 ```
 
----
+Ao final desta etapa, você terá as seguintes tabelas **Delta** disponíveis no seu Unity Catalog:
 
-# 📊 3. Criando a View Analítica
+  * `ai-agent-workshop.data.clientes`
+  * `ai-agent-workshop.data.produtos`
+  * `ai-agent-workshop.data.vendas`
 
-```sql
-CREATE OR REPLACE VIEW `ai-agent-workshop`.data.vw_financas_vendas AS
-SELECT
-  v.id_venda,
-  v.data_venda,
-  DATE(v.data_venda)                AS data,
-  YEAR(v.data_venda)                AS ano,
-  MONTH(v.data_venda)               AS mes,
+-----
 
-  -- Cliente
-  v.id_cliente,
-  c.nome_cliente,
-  c.segmento        AS segmento_cliente,
-  c.cidade          AS cidade_cliente,
-  c.estado          AS estado_cliente,
+## ➡️ Próximos Passos
 
-  -- Produto
-  v.id_produto,
-  p.nome_produto,
-  p.categoria       AS categoria_produto,
+Agora que os dados estão prontos, o workshop se divide em dois projetos principais:
 
-  -- Métricas da venda
-  v.quantidade,
-  v.valor_unitario,
-  v.valor_total     AS receita_venda,
-  v.canal_venda
+1.  **[Projeto 1: Agente RAG (Vector Search)](https://www.google.com/search?q=%23projeto-1-agente-rag-vector-search)** (utiliza a tabela `produtos`)
+2.  **[Projeto 2: Agente SQL (Text-to-SQL)](https://www.google.com/search?q=%23projeto-2-agente-sql-text-to-sql)** (utiliza as tabelas `clientes`, `produtos`, `vendas`)
 
-FROM `ai-agent-workshop`.data.vendas   AS v
-JOIN `ai-agent-workshop`.data.clientes AS c
-  ON v.id_cliente = c.id_cliente
-JOIN `ai-agent-workshop`.data.produtos AS p
-  ON v.id_produto = p.id_produto;
-```
+**Pule para o [Projeto 1: Agente RAG (Vector Search)](https://www.google.com/search?q=%23projeto-1-agente-rag-vector-search).**
 
----
-
-# 🧬 4. Tabela Semântica para RAG
-
-```sql
-CREATE OR REPLACE TABLE `ai-agent-workshop`.data.financas_semantica AS
-SELECT
-  CAST(id_venda AS STRING)                  AS id_registro,
-  'venda'                                   AS tipo,
-  CONCAT(
-    'Venda ', CAST(id_venda AS STRING),
-    ' realizada em ', CAST(data AS STRING),
-    ' para o cliente ', nome_cliente,
-    ' (segmento ', segmento_cliente, ', cidade ', cidade_cliente, ' - ', estado_cliente, '). ',
-    'Produto: ', nome_produto, ' (categoria ', categoria_produto, '). ',
-    'Quantidade: ', CAST(quantidade AS STRING),
-    ', valor unitário R$', CAST(valor_unitario AS STRING),
-    ', valor total R$', CAST(receita_venda AS STRING),
-    '. Canal de venda: ', canal_venda, '.'
-  ) AS texto_busca,
-
-  -- Metadados adicionais úteis
-  data,
-  ano,
-  mes,
-  nome_cliente,
-  segmento_cliente,
-  cidade_cliente,
-  estado_cliente,
-  nome_produto,
-  categoria_produto,
-  quantidade,
-  valor_unitario,
-  receita_venda,
-  canal_venda
-FROM `ai-agent-workshop`.data.vw_financas_vendas;
-```
-
----
-
-# 🧭 5. Criando a Tabela Vetorial
-
-Navegue no Databricks:
-
-1. **Compute → Vector Search**
-2. Clique em **Create Endpoint**
-3. Nome: `my-vector-search`
-4. Associe à tabela:
-
-```
-ai-agent-workshop.data.financas_semantica
-```
-
-5. Crie o índice:
-
-```
-ai-agent-workshop.data.financas_semantica_index
-```
-
-
----
-
-# ▶️ 6. Instalação & Execução
-
-> Pré-requisitos: **Python 3.13+** e **uv** instalado (`pip install uv` ou veja a doc do uv).
-
-### 1) Clonar o repositório
-
-```bash
-git clone https://github.com/<seu-usuario>/<seu-repo>.git
-cd <seu-repo>
-```
-
-### 2) Criar e ativar o ambiente com `uv`
-
-```bash
-# (Opcional) garantir Python 3.12 disponível pelo uv
-uv python install 3.13
-
-# criar venv
-uv venv
-```
-
-**Ativar o ambiente:**
-
-* **Windows (PowerShell):**
-
-```powershell
-. .venv\Scripts\Activate
-```
-
-* **macOS / Linux:**
-
-```bash
-source .venv/bin/activate
-```
-
-### 3) Instalar dependências do `pyproject.toml`
-
-```bash
-uv sync
-```
-
-> O `uv sync` instala tudo que está no `pyproject.toml` (e `uv.lock`, se existir), sem precisar de `requirements.txt`.
-
-### 4) Configurar variáveis de ambiente (`.env`)
-
-Crie um arquivo `.env` na raiz do projeto com as variáveis abaixo (ajuste os valores):
-
-```env
-# === Credenciais & Acesso ===
-OPENAI_API_KEY=sk-xxxxxx                                # se usar OpenAI (opcional conforme seu LLM)
-DATABRICKS_HOST=https://<seu-workspace>.cloud.databricks.com
-DATABRICKS_TOKEN=dapi-xxxxxxxxxxxxxxxxxxxxxxxx
-
-# === MLflow ===
-MLFLOW_TRACKING_URI=databricks                          # mantém "databricks"
-EXPERIMENT_ID=1234567890                                # ID do experimento no Databricks
-
-# === Vector Search ===
-VS_ENDPOINT=my-vector-search                            # nome do endpoint criado em Compute > Vector Search
-VS_INDEX=ai-agent-workshop.data.financas_semantica_index
-
-# === LLM no Databricks ===
-LLM_EP=databricks-meta-llama-3-3-70b-instruct           # endpoint de modelo (ajuste para o seu)
-MODEL_NAME=langchain_rag_demo                           # identificador lógico interno (livre)
-
-# === (Opcional) Conta/Workspace ===
-DATABRICKS_ACCOUNT_ID=                                  # use se necessário em sua org
-```
-
-> O projeto já carrega essas variáveis via `dotenv` no `settings.py`.
-
-### 5) Executar o app (Streamlit)
-
-```bash
-streamlit run app.py
-```
-
-Acesse: `http://localhost:8501`
-
----
